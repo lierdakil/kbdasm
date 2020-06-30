@@ -6,16 +6,16 @@
 include "detect_%arch%.inc"
 
 if SYSTEM_64BIT
-  format PE64 DLL native 5.0 at 5ffffff0000h on "nul" as "dll" ; Build for 64-bit Windows
+  format PE64 DLL native 5.0 at 0x0000000052980000 on "nul" as "dll" ; Build for 64-bit Windows
 else
-  format PE DLL native 5.0 at 5fff0000h on "nul" as "dll" ; Build for 32-bit Windows or WOW64
+  format PE DLL native 5.0 at 0x52980000 on "nul" as "dll" ; Build for 32-bit Windows or WOW64
 end if
 
 MAKE_DLL equ 1
 
 include "base.inc"
 
-WOW64 = 0 ; Use when assembling for 32-bit subsystem for 64-bit OS (Is this ever needed?)
+WOW64 = 1 ; Use when assembling for 32-bit subsystem for 64-bit OS (Is this ever needed?)
 USE_LIGATURES = 1 ; There is a bug in Firefox, if ligatures contain more than
                   ; 4 characters, it won't start up if that layout is default;
                   ; if the layout is switched to, Firefox then hangs.
@@ -105,7 +105,7 @@ keynamesDead:
     dp "ˇCARON"
     dp "°RING"
     dp "¸CEDILLA"
-    dp "¯MACRON" 
+    dp "¯MACRON"
     dp 0
 
 palign
